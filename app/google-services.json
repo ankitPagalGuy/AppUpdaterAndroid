@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "387789357344",
+    "firebase_url": "https://appupdater-95c16.firebaseio.com",
+    "project_id": "appupdater-95c16",
+    "storage_bucket": "appupdater-95c16.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387789357344:android:c6c17f7abb1e3d79",
+        "android_client_info": {
+          "package_name": "com.appupdaterandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "387789357344-39gpc749rjsvbvt0qsccot03gs5abafc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBioXqHUikOnTl5Kt9BApJR0ZQEGWvYAY4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
