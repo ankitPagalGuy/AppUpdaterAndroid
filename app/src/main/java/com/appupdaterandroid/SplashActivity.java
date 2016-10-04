@@ -13,6 +13,11 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 public class SplashActivity  extends AppCompatActivity{
 
   public static final String TAG = "SplashActivity";
+
+  //Remote Config keys
+  private static final String SHOULD_UPDATE_KEY = "should_update";
+  private static final String VERSION_CODE_KEY = "versionCode";
+  private static final String MESSAGE_KEY = "message";
   private FirebaseRemoteConfig mFirebaseRemoteConfig;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
