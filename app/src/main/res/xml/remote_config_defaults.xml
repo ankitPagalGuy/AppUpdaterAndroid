@@ -5,6 +5,8 @@
     <key>should_update</key>
     <value>false</value>
   </entry>
+  <key>should_kill</key>
+  <value>false</value>
   <entry>
     <key>versionCode</key>
     <value>2</value>

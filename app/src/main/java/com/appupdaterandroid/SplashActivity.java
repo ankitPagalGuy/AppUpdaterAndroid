@@ -16,6 +16,7 @@ public class SplashActivity  extends AppCompatActivity{
 
   //Remote Config keys
   private static final String SHOULD_UPDATE_KEY = "should_update";
+  private static final String SHOULD_KILL = "should_kill";
   private static final String VERSION_CODE_KEY = "versionCode";
   private static final String MESSAGE_KEY = "message";
   private FirebaseRemoteConfig mFirebaseRemoteConfig;
@@ -52,4 +53,7 @@ public class SplashActivity  extends AppCompatActivity{
     // [END set_default_values]
 
   }
+
+
+
 }
