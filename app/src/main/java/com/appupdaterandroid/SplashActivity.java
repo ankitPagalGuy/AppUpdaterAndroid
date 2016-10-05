@@ -16,7 +16,7 @@ public class SplashActivity  extends AppCompatActivity{
 
   //Remote Config keys
   private static final String SHOULD_UPDATE_KEY = "should_update";
-  private static final String SHOULD_KILL = "should_kill";
+  private static final String SHOULD_KILL_KEY = "should_kill";
   private static final String VERSION_CODE_KEY = "versionCode";
   private static final String MESSAGE_KEY = "message";
   private FirebaseRemoteConfig mFirebaseRemoteConfig;
@@ -51,6 +51,27 @@ public class SplashActivity  extends AppCompatActivity{
     // [START set_default_values]
     mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
     // [END set_default_values]
+
+
+    boolean shouldKill = mFirebaseRemoteConfig.getBoolean(SHOULD_KILL_KEY);
+    boolean shouldUpdate = mFirebaseRemoteConfig.getBoolean(SHOULD_UPDATE_KEY);
+    long versionCode = mFirebaseRemoteConfig.getLong(VERSION_CODE_KEY);
+    if ((versionCode > BuildConfig.VERSION_CODE) && (shouldKill)){
+      activateKillSwitch();
+    }else if ((versionCode > BuildConfig.VERSION_CODE) && (shouldUpdate)){
+      updateApp();
+    }
+
+
+
+  }
+
+
+  private void activateKillSwitch(){
+
+  }
+
+  private void updateApp(){
 
   }
 
