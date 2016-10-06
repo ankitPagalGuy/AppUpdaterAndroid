@@ -23,10 +23,11 @@ public class SplashActivity  extends AppCompatActivity{
   private static final String VERSION_CODE_KEY = "versionCode";
   private static final String MESSAGE_KEY = "message";
   private FirebaseRemoteConfig mFirebaseRemoteConfig;
+  String message;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.activity_splash);
 
 
     // Get Remote Config instance.
@@ -59,43 +60,47 @@ public class SplashActivity  extends AppCompatActivity{
     boolean shouldKill = mFirebaseRemoteConfig.getBoolean(SHOULD_KILL_KEY);
     boolean shouldUpdate = mFirebaseRemoteConfig.getBoolean(SHOULD_UPDATE_KEY);
     long versionCode = mFirebaseRemoteConfig.getLong(VERSION_CODE_KEY);
+    message = mFirebaseRemoteConfig.getString(MESSAGE_KEY);
 
     if ((versionCode > BuildConfig.VERSION_CODE) && (shouldKill))
       activateKillSwitch();
     else if ((versionCode > BuildConfig.VERSION_CODE) && (shouldUpdate))
       updateApp();
-
-
-    showDialog();
+    
 
   }
 
 
   private void activateKillSwitch(){
-
+    showDialog(false);
   }
 
   private void updateApp(){
-
+   showDialog(true);
   }
 
 
-  private void showDialog(){
+  private void showDialog(boolean dismiss){
     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-    alertDialogBuilder.setMessage("Are you sure,You wanted to make decision");
-    alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+    alertDialogBuilder.setMessage(message);
+    alertDialogBuilder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
       @Override
       public void onClick(DialogInterface arg0, int arg1) {
         Toast.makeText(SplashActivity.this,"You clicked yes button", Toast.LENGTH_LONG).show();
       }
     });
 
-    alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
-      @Override
-      public void onClick(DialogInterface dialog, int which) {
-        finish();
-      }
-    });
+
+    if (dismiss) {
+      alertDialogBuilder.setNegativeButton("Later", new DialogInterface.OnClickListener() {
+        @Override public void onClick(DialogInterface dialog, int which) {
+          finish();
+        }
+      });
+    }
+    else {
+      alertDialogBuilder.setCancelable(false);
+    }
 
     AlertDialog alertDialog = alertDialogBuilder.create();
     alertDialog.show();
