@@ -110,7 +110,6 @@ public class SplashActivity  extends AppCompatActivity{
 
   private void checkApp(){
 
-
     boolean shouldKill = mFirebaseRemoteConfig.getBoolean(SHOULD_KILL_KEY);
     boolean shouldUpdate = mFirebaseRemoteConfig.getBoolean(SHOULD_UPDATE_KEY);
     long versionCode = mFirebaseRemoteConfig.getLong(VERSION_CODE_KEY);
@@ -120,10 +119,8 @@ public class SplashActivity  extends AppCompatActivity{
       activateKillSwitch();
     else if ((versionCode > BuildConfig.VERSION_CODE) && (shouldUpdate))
       updateApp();
-    else {
-      Intent a = new Intent(SplashActivity.this, MainActivity.class);
-      startActivity(a);
-    }
+    else startMainActivity();
+
   }
 
 
@@ -134,6 +131,9 @@ public class SplashActivity  extends AppCompatActivity{
   private void updateApp(){
    showDialog(true);
   }
+
+
+
 
 
   private void showDialog(boolean dismiss){
@@ -150,7 +150,7 @@ public class SplashActivity  extends AppCompatActivity{
     if (dismiss) {
       alertDialogBuilder.setNegativeButton("Later", new DialogInterface.OnClickListener() {
         @Override public void onClick(DialogInterface dialog, int which) {
-          finish();
+          startMainActivity();
         }
       });
     }
@@ -163,5 +163,10 @@ public class SplashActivity  extends AppCompatActivity{
   }
 
 
+  public void startMainActivity(){
+    Intent a = new Intent(SplashActivity.this, MainActivity.class);
+    startActivity(a);
+    finish();
+  }
 
 }
