@@ -12,24 +12,16 @@
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+       android:layout_centerInParent="true"
         android:layout_marginBottom="16dp"
         android:src="@mipmap/ic_launcher" />
 
-    <TextView
-        android:id="@+id/priceView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/icon"
-        android:layout_centerHorizontal="true"
-        android:text="Checking your price..." />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="fetch_remote_price"
-        android:id="@+id/fetchButton"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+   <TextView
+       android:layout_centerInParent="true"
+       android:layout_below="@id/icon"
+       android:text="Hello World"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       />
 
 </RelativeLayout>
