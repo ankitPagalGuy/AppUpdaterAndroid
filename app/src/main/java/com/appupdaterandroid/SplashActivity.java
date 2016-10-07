@@ -1,11 +1,15 @@
 package com.appupdaterandroid;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
@@ -56,6 +60,56 @@ public class SplashActivity  extends AppCompatActivity{
     mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
     // [END set_default_values]
 
+   fetch();
+
+
+  }
+
+
+
+  /**
+   * Fetch discount from server.
+   */
+  private void fetch() {
+
+
+    long cacheExpiration = 3600; // 1 hour in seconds.
+    // If in developer mode cacheExpiration is set to 0 so each fetch will retrieve values from
+    // the server.
+    if (mFirebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
+      cacheExpiration = 0;
+    }
+
+    // [START fetch_config_with_callback]
+    // cacheExpirationSeconds is set to cacheExpiration here, indicating that any previously
+    // fetched and cached config would be considered expired because it would have been fetched
+    // more than cacheExpiration seconds ago. Thus the next fetch would go to the server unless
+    // throttling is in progress. The default expiration duration is 43200 (12 hours).
+    mFirebaseRemoteConfig.fetch(cacheExpiration)
+        .addOnCompleteListener(new OnCompleteListener<Void>() {
+          @Override
+          public void onComplete(@NonNull Task<Void> task) {
+            if (task.isSuccessful()) {
+              Toast.makeText(SplashActivity.this, "Fetch Succeeded",
+                  Toast.LENGTH_SHORT).show();
+
+              // Once the config is successfully fetched it must be activated before newly fetched
+              // values are returned.
+              mFirebaseRemoteConfig.activateFetched();
+            } else {
+              Toast.makeText(SplashActivity.this, "Fetch Failed",
+                  Toast.LENGTH_SHORT).show();
+            }
+            checkApp();
+          }
+        });
+    // [END fetch_config_with_callback]
+  }
+
+
+
+  private void checkApp(){
+
 
     boolean shouldKill = mFirebaseRemoteConfig.getBoolean(SHOULD_KILL_KEY);
     boolean shouldUpdate = mFirebaseRemoteConfig.getBoolean(SHOULD_UPDATE_KEY);
@@ -66,8 +120,10 @@ public class SplashActivity  extends AppCompatActivity{
       activateKillSwitch();
     else if ((versionCode > BuildConfig.VERSION_CODE) && (shouldUpdate))
       updateApp();
-    
-
+    else {
+      Intent a = new Intent(SplashActivity.this, MainActivity.class);
+      startActivity(a);
+    }
   }
 
 
